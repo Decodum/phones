@@ -1,18 +1,23 @@
-WITH tab AS (
-    SELECT pl.shop_name, 
-           pl.plan_cnt, 
-           pl.product_id, 
-           s.sales_cnt sales_s,
-           d.sales_cnt sales_d,
-           m.sales_cnt sales_m
-    FROM plan pl
-    JOIN shop_dns d ON pl.product_id = d.product_id
-    JOIN shop_mvideo m ON pl.product_id = m.product_id
-    JOIN shop_sitilink s ON pl.product_id = s.product_id
-    GROUP BY pl.shop_name, 
-             pl.plan_cnt, 
-             pl.product_id, 
-             d.sales_cnt, 
-             m.sales_cnt,
-             s.sales_cnt)
-SELECT p.product_name, 
+SELECT shop_name, 
+       product_name,
+       tab.sales_cnt AS sales_fact,
+       pl.plan_cnt AS sales_plan,
+       tab.sales_cnt/pl.plan_cnt AS ratio_sales_fact_plan,
+       (tab.sales_cnt * pr.price) AS income_fact,
+       (pl.plan_cnt * pr.price) AS income_plan,
+       (tab.sales_cnt * pr.price)/(pl.plan_cnt * pr.price) AS ration_income_fact_plan
+FROM
+(
+SELECT *
+FROM shop_dns UNION ALL 
+SELECT *
+FROM shop_mvideo UNION ALL
+SELECT *
+FROM shop_sitilink
+) AS tab
+JOIN plan AS pl ON pl.product_id=tab.product_id
+JOIN products AS pr ON pr.product_id=tab.product_id
+;
+
+
+

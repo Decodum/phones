@@ -1,4 +1,3 @@
-
 -- Вставка данных
 INSERT INTO products (product_id, product_name, price) VALUES
     (1, 'Испорченный телефон', 51434),
@@ -24,3 +23,8 @@ INSERT INTO shop_sitilink (product_id, date_, sales_cnt) VALUES
     (1, '2023-04-17 19:10:25', 876),
     (2, '2023-04-18 19:10:25', 94),
     (3, '2023-04-19 19:10:25', 17);
+
+INSERT INTO shops (shop_id, shop_name) VALUES
+    (7, 'shop_dns'),
+    (6, 'shop_mvideo'),
+    (5, 'shop_sitilink');

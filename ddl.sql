@@ -5,6 +5,11 @@ CREATE TABLE IF NOT EXISTS products (
     price BIGINT
 );
 
+CREATE TABLE IF NOT EXISTS shops (
+    shop_name VARCHAR(255) PRIMARY KEY,
+    shop_id BIGINT
+);
+
 CREATE TABLE IF NOT EXISTS plan (
     product_id BIGINT REFERENCES products(product_id),
     shop_name VARCHAR(255),
@@ -29,3 +34,4 @@ CREATE TABLE IF NOT EXISTS shop_sitilink (
     date_ TIMESTAMP,
     sales_cnt BIGINT
 );
+
